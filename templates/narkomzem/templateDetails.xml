@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="template" client="site">
+    <name>narkomzem</name>
+    <creationDate>07.04.2016</creationDate>
+    <author>Sutormin Evgeniy</author>
+    <authorEmail>sutormin.evgeniy@yandex.ru</authorEmail>
+    <authorUrl></authorUrl>
+    <copyright>Sutormin 2016</copyright>
+    <license>GNU/GPL</license>
+    <version>1.0.0</version>
+    <description>site_template</description>
+    <files>
+        <filename>error.php</filename>
+        <filename>index.php</filename>
+        <filename>index.html</filename>
+        <filename>templateDetails.xml</filename>
+
+        <folder>css</folder>
+        <folder>fonts</folder>
+        <folder>html</folder>
+        <folder>images</folder>
+        <folder>js</folder>
+    </files>
+    <positions>
+        <position>pos-Header-01</position>
+        <position>pos-Header-02</position>
+        <position>pos-Header-03</position>
+            
+        <position>pos-Menu-01</position>
+
+        <position>pos-BreadCr-01</position>
+
+        <position>pos-Top-01</position>
+
+        <position>pos-TopCont-01</position>
+
+        <position>pos-AsideLeft-01</position>
+
+        <position>pos-AsideRight-01</position>
+
+        <position>pos-BottomCont-01</position>
+
+        <position>pos-Bottom-01</position>
+
+        <position>pos-Footer-01</position>
+        <position>pos-Footer-02</position>
+        <position>pos-Footer-03</position>
+
+        <position>pos-01</position>
+        <position>pos-02</position>
+        <position>pos-03</position>
+        <position>pos-04</position>
+        <position>pos-05</position>
+        <position>pos-06</position>
+        <position>pos-07</position>
+        <position>pos-08</position>
+        <position>pos-09</position>
+    </positions>
+</extension>
