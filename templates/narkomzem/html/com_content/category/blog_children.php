@@ -55,12 +55,14 @@ if (count($this->children[$this->category->id]) > 0 && $this->maxLevel != 0) : ?
 			</h3>
 
 			<?php if ($this->params->get('show_subcat_desc') == 1) : ?>
-			<?php if ($child->description) : ?>
-				<div class="category-desc">
-					<?php echo JHtml::_('content.prepare', $child->description, '', 'com_content.category'); ?>
-				</div>
+				<?php if ($child->description) : ?>
+					<div class="category-desc">
+						<?php echo JHtml::_('content.prepare', $child->description, '', 'com_content.category'); ?>
+					</div>
+				<?php endif; ?>
 			<?php endif; ?>
-			<?php endif; ?>
+
+			<?php echo JLayoutHelper::render('joomla.content.intro_image_cat', $child); ?>
 
 			<?php if (count($child->getChildren()) > 0 && $this->maxLevel > 1) : ?>
 			<div class="collapse fade" id="category-<?php echo $child->id; ?>">

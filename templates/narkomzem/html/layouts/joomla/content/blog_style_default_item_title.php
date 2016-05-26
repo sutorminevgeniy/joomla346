@@ -19,14 +19,14 @@ JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 		<div class="page-header">
 
 			<?php if ($params->get('show_title')) : ?>
-				<h2 itemprop="name">
+				<h4 itemprop="name">
 					<?php if ($params->get('link_titles') && $params->get('access-view')) : ?>
 						<a href="<?php echo JRoute::_(ContentHelperRoute::getArticleRoute($displayData->slug, $displayData->catid, $displayData->language)); ?>" itemprop="url">
 						<?php echo $this->escape($displayData->title); ?></a>
 					<?php else : ?>
 						<?php echo $this->escape($displayData->title); ?>
 					<?php endif; ?>
-				</h2>
+				</h4>
 			<?php endif; ?>
 
 			<?php if ($displayData->state == 0) : ?>

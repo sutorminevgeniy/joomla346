@@ -13,21 +13,22 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 JHtml::_('behavior.caption');
 ?>
-<div class="blog<?php echo $this->pageclass_sfx; ?>" itemscope itemtype="http://schema.org/Blog">
+<?php $blogClass = trim("blog " . $this->pageclass_sfx); ?>
+<div class="<?php echo $blogClass; ?>" itemscope itemtype="http://schema.org/Blog">
     <?php // Показывать заголовок страницы (заголовок пункта меню показывается и  в детальных) ?>
     <?php if ($this->params->get('show_page_heading')) : ?>
-	<div class="page-header">
-	    <h1> <?php echo $this->escape($this->params->get('page_heading')); ?> </h1>
-	</div>
+		<div class="page-header">
+			<h1> <?php echo $this->escape($this->params->get('page_heading')); ?> </h1>
+		</div>
     <?php endif; ?>
     
     <?php // Заголовок категории (заголовок категории показывается только в блоге категорий) ?>
     <?php if ($this->params->get('show_category_title', 1) or $this->params->get('page_subheading')) : ?>
-	<h2> <?php echo $this->escape($this->params->get('page_subheading')); ?>
-	    <?php if ($this->params->get('show_category_title')) : ?>
-		<span class="subheading-category"><?php echo $this->category->title; ?></span>
-	    <?php endif; ?>
-	</h2>
+		<h2> <?php echo $this->escape($this->params->get('page_subheading')); ?>
+		    <?php if ($this->params->get('show_category_title')) : ?>
+			<span class="subheading-category"><?php echo $this->category->title; ?></span>
+		    <?php endif; ?>
+		</h2>
     <?php endif; ?>
 
     <?php if ($this->params->get('show_cat_tags', 1) && !empty($this->category->tags->itemTags)) : ?>
@@ -37,14 +38,14 @@ JHtml::_('behavior.caption');
     
     <?php // Описания подкатегорий ?>
     <?php if ($this->params->get('show_description', 1) || $this->params->def('show_description_image', 1)) : ?>
-	<div class="category-desc clearfix">
-	    <?php if ($this->params->get('show_description_image') && $this->category->getParams()->get('image')) : ?>
-		    <img src="<?php echo $this->category->getParams()->get('image'); ?>" alt="<?php echo htmlspecialchars($this->category->getParams()->get('image_alt')); ?>"/>
-	    <?php endif; ?>
-	    <?php if ($this->params->get('show_description') && $this->category->description) : ?>
-		    <?php echo JHtml::_('content.prepare', $this->category->description, '', 'com_content.category'); ?>
-	    <?php endif; ?>
-	</div>
+		<div class="category-desc clearfix">
+		    <?php if ($this->params->get('show_description_image') && $this->category->getParams()->get('image')) : ?>
+			    <img src="<?php echo $this->category->getParams()->get('image'); ?>" alt="<?php echo htmlspecialchars($this->category->getParams()->get('image_alt')); ?>"/>
+		    <?php endif; ?>
+		    <?php if ($this->params->get('show_description') && $this->category->description) : ?>
+			    <?php echo JHtml::_('content.prepare', $this->category->description, '', 'com_content.category'); ?>
+		    <?php endif; ?>
+		</div>
     <?php endif; ?>
 
     <?php if (empty($this->lead_items) && empty($this->link_items) && empty($this->intro_items)) : ?>
@@ -77,29 +78,31 @@ JHtml::_('behavior.caption');
     ?>
     <?php // Только введения ?>
     <?php if (!empty($this->intro_items)) : ?>
-	<?php foreach ($this->intro_items as $key => &$item) : ?>
-	    <?php // Количество колонок ?>
-	    <?php $rowcount = ((int) $key % (int) $this->columns) + 1; ?>
-	    <?php if ($rowcount == 1) : ?>
-		<?php $row = $counter / $this->columns; ?>
-		<div class="items-row cols-<?php echo (int) $this->columns; ?> <?php echo 'row-' . $row; ?> row-fluid clearfix">
-	    <?php endif; ?>
-		<div class="span<?php echo round((12 / $this->columns)); ?>">
-		    <div class="item column-<?php echo $rowcount; ?><?php echo $item->state == 0 ? ' system-unpublished' : null; ?>"
-		    itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-			<?php
-			$this->item = & $item;
-			// Вывод шаблона с содержимым материала
-			echo $this->loadTemplate('item');
-			?>
-		    </div>
-		    <!-- end item -->
-		    <?php $counter++; ?>
-		</div><!-- end span -->
-	    <?php if (($rowcount == $this->columns) or ($counter == $introcount)) : ?>
-		</div><!-- end row -->
-	    <?php endif; ?>
-	<?php endforeach; ?>
+    	<div class="blItems">
+		<?php foreach ($this->intro_items as $key => &$item) : ?>
+		    <?php // Количество колонок ?>
+		    <?php $rowcount = ((int) $key % (int) $this->columns) + 1; ?>
+		    <?php if ($rowcount == 1) : ?>
+			<?php $row = $counter / $this->columns; ?>
+			<div class="items-row cols-<?php echo (int) $this->columns; ?> <?php echo 'row-' . $row; ?> row-fluid clearfix">
+		    <?php endif; ?>
+			<div class="span<?php echo round((12 / $this->columns)); ?>">
+			    <div class="item column-<?php echo $rowcount; ?><?php echo $item->state == 0 ? ' system-unpublished' : null; ?>"
+			    itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+				<?php
+				$this->item = & $item;
+				// Вывод шаблона с содержимым материала
+				echo $this->loadTemplate('item');
+				?>
+			    </div>
+			    <!-- end item -->
+			    <?php $counter++; ?>
+			</div><!-- end span -->
+		    <?php if (($rowcount == $this->columns) or ($counter == $introcount)) : ?>
+			</div><!-- end row -->
+		    <?php endif; ?>
+		<?php endforeach; ?>
+		</div>
     <?php endif; ?>
 		
     <?php // Количество ссылок ?>	
@@ -108,11 +111,12 @@ JHtml::_('behavior.caption');
 		    <?php echo $this->loadTemplate('links'); ?>
 	    </div>
     <?php endif; ?>
-
+	
+	<?php // Подкатегории ?>
     <?php if (!empty($this->children[$this->category->id]) && $this->maxLevel != 0) : ?>
 	<div class="cat-children">
 	    <?php if ($this->params->get('show_category_heading_title_text', 1) == 1) : ?>
-		<h3> <?php echo JText::_('JGLOBAL_SUBCATEGORIES'); ?> </h3>
+			<h3> <?php echo JText::_('JGLOBAL_SUBCATEGORIES'); ?> </h3>
 	    <?php endif; ?>
 	    <?php echo $this->loadTemplate('children'); ?> 
 	</div>
